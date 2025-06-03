@@ -1,31 +1,7 @@
-# 👉 Python cache files
-__pycache__/
-*.py[cod]
-
-# 👉 Jupyter or notebook checkpoints (if any)
-.ipynb_checkpoints/
-
-# 👉 Virtual environments (in case you're using one)
-venv/
-env/
-
-# 👉 Streamlit secrets
 .streamlit/secrets.toml
-
-# 👉 Environment variable files
 .env
-
-# 👉 PDF files and temporary files
-files/
-*.pdf
-
-# 👉 OS/system specific files
 .DS_Store
 Thumbs.db
-
-# 👉 Editor-specific settings (optional)
 .vscode/
 *.swp
-
-# 👉 Logs and output
 *.log
