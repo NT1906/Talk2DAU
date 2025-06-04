@@ -31,13 +31,8 @@ A conversational AI chatbot powered by Langchain and Groq LLM, designed to answe
 - Easy deployment using Streamlit Cloud.
 - Secure management of API keys via Streamlit Secrets.
 
----
+![Talk2DAU Architecture](./assets/flow.svg)
 
-## Demo
-
-[Add your deployed Streamlit app URL here]
-
----
 
 ## Getting Started
 
@@ -97,49 +92,10 @@ streamlit run app.py
 - Enter your questions in the input box.
 - Get answers along with relevant document chunks displayed.
 
----
 
-## Project Structure
-
-```
-Talk2DAU/
-├── app.py                  # Main Streamlit app code
-├── files/                  # Folder to add your PDF files
-├── .streamlit/
-│   └── secrets.toml        # Local secrets file (not pushed to GitHub)
-├── requirements.txt        # Python dependencies
-└── README.md               # Project documentation
-```
-
----
-
-## Environment Variables
-
-- `GROQ_API_KEY` — Groq API key
-- `LANGSMITH_API_KEY` — LangSmith API key
-
-> **Note:** Use Streamlit secrets or `.env` locally. Never push your API keys publicly.
-
----
-
-## Deployment
-
-Deploy easily on [Streamlit Community Cloud](https://streamlit.io/cloud):
-
-- Connect your GitHub repository.
-- Specify the main app file (`app.py`).
-- Add your API keys in the **Secrets** section.
-- Streamlit will build and host your app automatically.
-
----
 
 ## Notes
 
 - This bot is **not affiliated with Dhirubhai Ambani University**.
 - Misinformation may be generated — always verify answers independently.
 
----
-
-## License
-
-[Add your license here, e.g., MIT License]
