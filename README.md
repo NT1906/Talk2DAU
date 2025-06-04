@@ -8,7 +8,7 @@ A conversational AI chatbot powered by Langchain and Groq LLM, designed to answe
 ## Tech Stack
 
 [![Python](https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)]
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![LangChain](https://img.shields.io/badge/LangChain-000000?style=for-the-badge&logo=langchain&logoColor=white)](https://www.langchain.com/)
 [![Groq LLM](https://img.shields.io/badge/Groq%20LLM-ff6f00?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com/)
 [![FAISS](https://img.shields.io/badge/FAISS-2c3e50?style=for-the-badge)](https://github.com/facebookresearch/faiss)
