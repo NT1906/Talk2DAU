@@ -5,23 +5,10 @@ A conversational AI chatbot powered by Langchain and Groq LLM, designed to answe
 
 ---
 
-## Technology / Tech Stack
+## Tech Stack
 
-- [![Python](https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/) — Main programming language  
--[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/) — Web app framework for interactive UI  
-- **Langchain** — Framework for building LLM-powered apps  
-- **Groq LLM (ChatGroq)** — Large Language Model API for answering queries  
-- **FAISS** — Vector similarity search library for document retrieval  
-- **HuggingFace Embeddings** — To generate embeddings for documents  
-- **PyPDFDirectoryLoader** — Load and parse PDFs from a folder  
-- **dotenv** — Load environment variables locally  
-- **Streamlit Secrets** — Secure storage of API keys in deployment  
-- **Git & GitHub** — Version control and code hosting
-
-- ## 🛠️ Tech Stack
-
-
-
+[![Python](https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/) 
 [![LangChain](https://img.shields.io/badge/Langchain-000000?style=for-the-badge&logo=data:image/svg+xml;base64,&logoColor=white)](https://www.langchain.com/)
 [![Groq LLM](https://img.shields.io/badge/Groq%20LLM-ff6f00?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com/)
 [![FAISS](https://img.shields.io/badge/FAISS-2c3e50?style=for-the-badge)](https://github.com/facebookresearch/faiss)
@@ -31,6 +18,17 @@ A conversational AI chatbot powered by Langchain and Groq LLM, designed to answe
 [![Streamlit Secrets](https://img.shields.io/badge/Streamlit%20Secrets-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://docs.streamlit.io/streamlit-cloud/secrets-management)
 [![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/)
+
+- **Python** — Main programming language  
+- **Streamlit** — Web app framework for interactive UI  
+- **Langchain** — Framework for building LLM-powered apps  
+- **Groq LLM (ChatGroq)** — Large Language Model API for answering queries  
+- **FAISS** — Vector similarity search library for document retrieval  
+- **HuggingFace Embeddings** — To generate embeddings for documents  
+- **PyPDFDirectoryLoader** — Load and parse PDFs from a folder  
+- **dotenv** — Load environment variables locally  
+- **Streamlit Secrets** — Secure storage of API keys in deployment  
+- **Git & GitHub** — Version control and code hosting
 
 
 ---
