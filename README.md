@@ -16,7 +16,22 @@ A conversational AI chatbot powered by Langchain and Groq LLM, designed to answe
 - **PyPDFDirectoryLoader** — Load and parse PDFs from a folder  
 - **dotenv** — Load environment variables locally  
 - **Streamlit Secrets** — Secure storage of API keys in deployment  
-- **Git & GitHub** — Version control and code hosting  
+- **Git & GitHub** — Version control and code hosting
+
+- ## 🛠️ Tech Stack
+
+[![Python](https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![LangChain](https://img.shields.io/badge/Langchain-000000?style=for-the-badge&logo=data:image/svg+xml;base64,&logoColor=white)](https://www.langchain.com/)
+[![Groq LLM](https://img.shields.io/badge/Groq%20LLM-ff6f00?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com/)
+[![FAISS](https://img.shields.io/badge/FAISS-2c3e50?style=for-the-badge)](https://github.com/facebookresearch/faiss)
+[![HuggingFace Embeddings](https://img.shields.io/badge/HuggingFace%20Embeddings-ffcc00?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/docs/transformers/index)
+[![PyPDFDirectoryLoader](https://img.shields.io/badge/PyPDFDirectoryLoader-4b8bbe?style=for-the-badge)](https://api.python.langchain.com/en/latest/loaders/langchain_community.document_loaders.pypdf_directory.PyPDFDirectoryLoader.html)
+[![dotenv](https://img.shields.io/badge/dotenv-8c8c8c?style=for-the-badge&logo=dotenv&logoColor=white)](https://pypi.org/project/python-dotenv/)
+[![Streamlit Secrets](https://img.shields.io/badge/Streamlit%20Secrets-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://docs.streamlit.io/streamlit-cloud/secrets-management)
+[![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/)
+
 
 ---
 
