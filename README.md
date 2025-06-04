@@ -7,8 +7,8 @@ A conversational AI chatbot powered by Langchain and Groq LLM, designed to answe
 
 ## Technology / Tech Stack
 
-- **Python** — Main programming language  
-- **Streamlit** — Web app framework for interactive UI  
+- [![Python](https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/) — Main programming language  
+-[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/) — Web app framework for interactive UI  
 - **Langchain** — Framework for building LLM-powered apps  
 - **Groq LLM (ChatGroq)** — Large Language Model API for answering queries  
 - **FAISS** — Vector similarity search library for document retrieval  
@@ -20,8 +20,8 @@ A conversational AI chatbot powered by Langchain and Groq LLM, designed to answe
 
 - ## 🛠️ Tech Stack
 
-[![Python](https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+
+
 [![LangChain](https://img.shields.io/badge/Langchain-000000?style=for-the-badge&logo=data:image/svg+xml;base64,&logoColor=white)](https://www.langchain.com/)
 [![Groq LLM](https://img.shields.io/badge/Groq%20LLM-ff6f00?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com/)
 [![FAISS](https://img.shields.io/badge/FAISS-2c3e50?style=for-the-badge)](https://github.com/facebookresearch/faiss)
