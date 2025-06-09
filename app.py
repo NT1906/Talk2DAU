@@ -37,10 +37,12 @@ app = FastAPI(title="Talk2DAU Chatbot API")
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://talk2dau-production.up.railway.app", "http://localhost:3000", "https://talk2-dau.vercel.app"],  # Allow both production and local development
+    allow_origins=["https://talk2dau-production.up.railway.app", "http://localhost:3000", "https://talk2-dau.vercel.app"],
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+    expose_headers=["*"],
+    max_age=3600,  # Cache preflight requests for 1 hour
 )
 
 # Initialize LLM
