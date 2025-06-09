@@ -48,7 +48,7 @@ export default function Chat() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       
-      const data = await response.json();
+      await response.json(); // Just consume the response without storing it
       
       // Add system message
       setMessages(prev => [...prev, {
