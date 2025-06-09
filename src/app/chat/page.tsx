@@ -85,10 +85,15 @@ export default function Chat() {
         });
         
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
         }
         
         const data = await response.json();
+        
+        if (!data.response) {
+          throw new Error('No response received from the server');
+        }
         
         // Add user message
         setMessages(prev => [...prev, {
@@ -109,10 +114,10 @@ export default function Chat() {
         inputRef.current?.focus();
       } catch (error) {
         console.error('Error sending message:', error);
-        // Add error message
+        // Add error message with more details
         setMessages(prev => [...prev, {
           id: prev.length + 1,
-          text: "Sorry, I encountered an error. Please try again.",
+          text: `Error: ${error instanceof Error ? error.message : 'An unexpected error occurred'}`,
           sender: 'ai'
         }]);
       } finally {
