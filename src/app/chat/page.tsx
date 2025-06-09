@@ -79,8 +79,7 @@ export default function Chat() {
         const response = await fetch(`${API_URL}/api/chat`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer rnd_1QYU1l7EAQwef7eWjunvRrVv6oko'
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({ message: inputText }),
         });
