@@ -107,7 +107,7 @@ async def startup_event():
     if not vectors:
         raise RuntimeError("Failed to initialize document processing")
 
-@app.post("/api/chat", response_model=ChatResponse)
+@app.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
     try:
         if not vectors:
