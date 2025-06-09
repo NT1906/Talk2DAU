@@ -1,16 +1,17 @@
-streamlit
 langchain
 langchain-community
 langchain-core
 langchain-openai
 langchain-groq
-langchain_groq  
+langchain_groq
 sentence-transformers
 faiss-cpu
 pdfplumber
 pytesseract
 Pillow
-pymupdf  
-camelot-py[cv]  
-pdfplumber
+pymupdf
+camelot-py[cv]
+python-dotenv==1.0.1
+flask==3.0.2
+flask-cors==4.0.0
 

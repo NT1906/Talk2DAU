@@ -1,8 +1,10 @@
-
+# Main chatbot-model Python Script
 import os
 import time
 from dotenv import load_dotenv
-
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -18,18 +20,28 @@ load_dotenv()
 # Set LangSmith environment variables
 os.environ["LANGSMITH_TRACING"] = "true"
 os.environ["LANGSMITH_ENDPOINT"] = "https://api.smith.langchain.com"
-os.environ["LANGSMITH_API_KEY"] = os.getenv("LANGSMITH_API_KEY")
-os.environ["LANGSMITH_PROJECT"] = "DAIICT Chatbot"
 
-# Retrieve Groq API key
+# Handle LANGSMITH_API_KEY gracefully
+langsmith_api_key = os.getenv("LANGSMITH_API_KEY")
+if langsmith_api_key:
+    os.environ["LANGSMITH_API_KEY"] = langsmith_api_key
+
+# Handle GROQ_API_KEY gracefully
 groq_api_key = os.getenv("GROQ_API_KEY")
+if not groq_api_key:
+    raise RuntimeError("GROQ_API_KEY environment variable is not set. Please set it in your .env file or environment.")
 
+# Initialize FastAPI app
+app = FastAPI(title="Talk2DAU Chatbot API")
 
-#Set Logo, Streamlit app title
-col1, col2, col3 = st.columns([1, 2, 1])  # Middle column is wider to hold image
-with col2:
-    st.image("image.png", width=400)  # You can adjust width for size
-st.title("Talk2DAU")
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 # Initialize LLM
 llm = ChatGroq(
@@ -47,74 +59,106 @@ Answer the question based only on the provided context.
 Question: {input}
 """)
 
-# Function to handle embedding and vector storage
-def vector_embedding():
+# Pydantic models for request/response
+class ChatRequest(BaseModel):
+    message: str
+
+class ChatResponse(BaseModel):
+    response: str
+    processing_time: float
+
+def process_documents():
     try:
-        with st.spinner("Processing documents..."):
-            if "vectors" not in st.session_state:
-                st.session_state.embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-                st.session_state.loader = PyPDFDirectoryLoader("files")
-                st.session_state.docs = st.session_state.loader.load()
-
-                st.write(f"📁 Loaded {len(st.session_state.docs)} PDF files")
-
-                st.session_state.text_splitter = RecursiveCharacterTextSplitter(
-                    chunk_size=1000,
-                    chunk_overlap=200
-                )
-                st.session_state.final_documents = st.session_state.text_splitter.split_documents(
-                    st.session_state.docs
-                )
-
-                st.write(f"🔢 Total document chunks created: {len(st.session_state.final_documents)}")
-
-                st.session_state.vectors = FAISS.from_documents(
-                    st.session_state.final_documents,
-                    st.session_state.embeddings
-                )
-                st.success("Bot successfully started!")
+        print("Processing documents...")
+        embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+        loader = PyPDFDirectoryLoader("files")
+        docs = loader.load()
+        
+        print(f"📁 Loaded {len(docs)} PDF files")
+        
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000,
+            chunk_overlap=200
+        )
+        final_documents = text_splitter.split_documents(docs)
+        
+        print(f"🔢 Total document chunks created: {len(final_documents)}")
+        
+        vectors = FAISS.from_documents(final_documents, embeddings)
+        print("✅ Bot successfully started!")
+        return vectors
     except Exception as e:
-        st.error(f"❌ An error occurred: {e}")
+        print(f"❌ An error occurred: {e}")
+        return None
 
-# Button to trigger embedding
-if st.button("Start Bot"):
-    vector_embedding()
+# Global variable to store vectors
+vectors = None
 
-# Question input
-prompt1 = st.text_input("Please write your questions here in the text box.")
+@app.on_event("startup")
+async def startup_event():
+    global vectors
+    vectors = process_documents()
+    if not vectors:
+        raise RuntimeError("Failed to initialize document processing")
 
-# Perform retrieval-based QA
-if prompt1:
-    if "vectors" not in st.session_state:
-        st.warning("⚠️ Please click 'Start Button' first.")
-    else:
+@app.post("/api/chat", response_model=ChatResponse)
+async def chat(request: ChatRequest):
+    if not vectors:
+        raise HTTPException(status_code=500, detail="Document processing not initialized")
+    
+    document_chain = create_stuff_documents_chain(llm, prompt)
+    retriever = vectors.as_retriever(search_kwargs={"k": 10})
+    retrieval_chain = create_retrieval_chain(retriever, document_chain)
+    
+    start = time.process_time()
+    response = retrieval_chain.invoke({'input': request.message})
+    end = time.process_time()
+    
+    return ChatResponse(
+        response=response['answer'],
+        processing_time=end - start
+    )
+
+@app.post("/api/reprocess", response_model=dict)
+async def reprocess_documents():
+    global vectors
+    try:
+        vectors = process_documents()
+        if not vectors:
+            raise HTTPException(status_code=500, detail="Failed to process documents")
+        return {"status": "success", "message": "Documents reprocessed successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+def main():
+    print("Welcome to Talk2DAU Chatbot!")
+    print("Initializing...")
+    
+    vectors = process_documents()
+    if not vectors:
+        return
+    
+    while True:
+        question = input("\nEnter your question (or 'quit' to exit): ")
+        if question.lower() == 'quit':
+            break
+            
         document_chain = create_stuff_documents_chain(llm, prompt)
-        retriever = st.session_state.vectors.as_retriever(search_kwargs={"k": 10})  # More chunks
+        retriever = vectors.as_retriever(search_kwargs={"k": 10})
         retrieval_chain = create_retrieval_chain(retriever, document_chain)
-
+        
         start = time.process_time()
-        response = retrieval_chain.invoke({'input': prompt1})
+        response = retrieval_chain.invoke({'input': question})
         end = time.process_time()
+        
+        print("\nAnswer:")
+        print(response['answer'])
+        print(f"\n⏱Response time: {end - start:.2f} seconds")
+        
+        print("\nNote: This Bot is not affiliated with Dhirubhai Ambani University.")
+        print("For more information visit: https://www.daiict.ac.in")
+        print("Misinformation can be generated!")
 
-        # Display answer
-        st.subheader("Answer:")
-        st.write(response['answer'])
-
-        st.write(f"⏱Response time: {end - start:.2f} seconds")
-
-        # Show source documents
-        with st.expander("📚 Document Chunks Used"):
-            relevant_docs = retriever.get_relevant_documents(prompt1)
-            for i, doc in enumerate(relevant_docs):
-                st.markdown(f"**Chunk {i+1} from {doc.metadata.get('source', 'unknown')}**")
-                st.write(doc.page_content)
-                st.markdown("---")
-
-st.write()
-
-st.write("Note: ")
-st.write(" This Bot is not affiliated with Dhirubhai Ambani University.")
-url = "https://www.daiict.ac.in"
-text = "Website"
-
-st.markdown(f"Misinformation can be generated! For more information visit -[{text}]({url})")
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
