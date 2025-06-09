@@ -37,7 +37,7 @@ app = FastAPI(title="Talk2DAU Chatbot API")
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
+    allow_origins=["https://talk2dau-production.up.railway.app", "http://localhost:3000"],  # Allow both production and local development
     allow_credentials=True,
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers

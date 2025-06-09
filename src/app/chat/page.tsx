@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { API_URL } from '@/config';
 
 interface Message {
   id: number;
@@ -40,8 +41,11 @@ export default function Chat() {
   const handleReprocess = async () => {
     setIsReprocessing(true);
     try {
-      const response = await fetch('http://localhost:8000/api/reprocess', {
+      const response = await fetch(`${API_URL}/api/reprocess`, {
         method: 'POST',
+        headers: {
+          'Authorization': 'Bearer rnd_1QYU1l7EAQwef7eWjunvRrVv6oko'
+        }
       });
       
       if (!response.ok) {
@@ -72,10 +76,11 @@ export default function Chat() {
     if (inputText.trim()) {
       setIsLoading(true);
       try {
-        const response = await fetch('http://localhost:8000/api/chat', {
+        const response = await fetch(`${API_URL}/api/chat`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer rnd_1QYU1l7EAQwef7eWjunvRrVv6oko'
           },
           body: JSON.stringify({ message: inputText }),
         });

@@ -1,0 +1,1 @@
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://talk2dau-production.up.railway.app'; 
